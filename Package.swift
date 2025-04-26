@@ -1,4 +1,4 @@
-// swift-tools-version: 5.8
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -10,15 +10,14 @@ let package = Package(
 		.library(name: "PyTextToSpeech", targets: ["PyTextToSpeech"])
 	],
 	dependencies: [
-        .package(url: "https://github.com/PythonSwiftLink/KivySwiftLink", from: .init(311, 0, 0)),
+        .package(url: "https://github.com/PythonSwiftLink/PySwiftKit", from: .init(311, 0, 0)),
         .package(url: "https://github.com/PythonSwiftLink/SwiftonizePlugin", from: .init(0, 0, 0)),
 	],
 	targets: [
 		.target(
 			name: "PyTextToSpeech",
 			dependencies: [
-                .product(name: "PythonSwiftCore", package: "KivySwiftLink"),
-                .product(name: "PySwiftObject", package: "KivySwiftLink"),
+                .product(name: "SwiftonizeModules", package: "PySwiftKit"),
 			],
 			plugins: [ .plugin(name: "Swiftonize", package: "SwiftonizePlugin") ]
 		),
