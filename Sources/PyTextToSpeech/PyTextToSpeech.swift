@@ -1,39 +1,44 @@
 //
 //  TextToSpeech.swift
-//  untitled
-//
-//  Created by MusicMaker on 22/12/2022.
 //
 
-import Foundation
 import AVFoundation
 
+import PySwiftKit
+import PySerializing
+import PySwiftObject
+import PySwiftWrapper
+
+@PyClass
 public class TextToSpeech {
 	
 	let synth = AVSpeechSynthesizer()
 	var voice: AVSpeechSynthesisVoice?
 	
-	init() {
-		
-	}
+    @PyInit init() {}
+    
+    @PyMethod func set_locale(locale: String) {
+        self.voice = .init(language: locale)
+    }
+    
+    @PyMethod func speak(message: String) {
+        if self.voice == nil {
+            set_locale(locale: "en-US")
+        }
+        
+        let utterance = AVSpeechUtterance(string: message)
+        utterance.voice = self.voice
+        
+        synth.speak(utterance)
+    }
 }
 
-extension TextToSpeech: TextToSpeech_PyProtocol {
-	public func set_locale(locale: String) {
-		self.voice = .init(language: locale)
-	}
-	
-	public func speak(message: String) {
-		
-		if self.voice == nil {
-			set_locale(locale: "en-US")
-		}
-		
-		let utterance = AVSpeechUtterance(string: message)
-		utterance.voice = self.voice
-		
-		synth.speak(utterance)
-	}
-	
-	
+
+
+@PyModule
+struct tts: PyModuleProtocol {
+    
+    static var py_classes: [any (PyClassProtocol & AnyObject).Type] = [
+        TextToSpeech.self
+    ]
 }

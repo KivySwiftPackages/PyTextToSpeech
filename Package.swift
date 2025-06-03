@@ -11,15 +11,14 @@ let package = Package(
 	],
 	dependencies: [
         .package(url: "https://github.com/PythonSwiftLink/PySwiftKit", from: .init(311, 0, 0)),
-        .package(url: "https://github.com/PythonSwiftLink/SwiftonizePlugin", from: .init(0, 0, 0)),
+        //.package(url: "https://github.com/PythonSwiftLink/SwiftonizePlugin", from: .init(0, 0, 0)),
 	],
 	targets: [
 		.target(
 			name: "PyTextToSpeech",
 			dependencies: [
                 .product(name: "SwiftonizeModules", package: "PySwiftKit"),
-			],
-			plugins: [ .plugin(name: "Swiftonize", package: "SwiftonizePlugin") ]
+			]
 		),
 
 	]
