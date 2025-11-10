@@ -6,7 +6,6 @@ import AVFoundation
 
 import PySwiftKit
 import PySerializing
-import PySwiftObject
 import PySwiftWrapper
 
 @PyClass
